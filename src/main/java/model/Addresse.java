@@ -8,6 +8,9 @@ public class Addresse {
     private String city;
     private String state;
     
+    public Addresse() {
+    }
+
     public Addresse(int idAdrresse, String public_space, String cep, String city, String state) {
         this.idAdrresse = idAdrresse;
         this.public_space = public_space;

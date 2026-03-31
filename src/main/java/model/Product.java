@@ -10,6 +10,9 @@ public class Product {
     private int quantity_max;
     private int idCategory;
     
+    public Product() {
+    }
+
     public Product(int idProduct, String name, double unit_price, int quantity_stock, int quantity_min,
             int quantity_max, int idCategory) {
         this.idProduct = idProduct;

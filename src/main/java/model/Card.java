@@ -8,6 +8,9 @@ public class Card {
     private char cvv;
     private int idUser;
     
+    public Card() {
+    }
+
     public Card(int idCard, int card_number, char validity, char cvv, int idUser) {
         this.idCard = idCard;
         this.card_number = card_number;

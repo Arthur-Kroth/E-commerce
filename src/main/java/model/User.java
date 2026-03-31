@@ -11,6 +11,9 @@ public class User {
     private char date_burth;
     private int idAddresse;
     
+    public User() {
+    }
+
     public User(int idUser, String name, String cpf, String email, String password, String fone, char date_burth,
             int idAddresse) {
         this.idUser = idUser;
