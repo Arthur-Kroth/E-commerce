@@ -2,7 +2,7 @@ package model;
 
 public class Product {
 
-    private int id;
+    private int idProduct;
     private String name;
     private double unit_price;
     private int quantity_stock;
@@ -10,9 +10,9 @@ public class Product {
     private int quantity_max;
     private int idCategory;
     
-    public Product(int id, String name, double unit_price, int quantity_stock, int quantity_min, int quantity_max,
-            int idCategory) {
-        this.id = id;
+    public Product(int idProduct, String name, double unit_price, int quantity_stock, int quantity_min,
+            int quantity_max, int idCategory) {
+        this.idProduct = idProduct;
         this.name = name;
         this.unit_price = unit_price;
         this.quantity_stock = quantity_stock;
@@ -21,12 +21,12 @@ public class Product {
         this.idCategory = idCategory;
     }
 
-    public int getId() {
-        return id;
+    public int getIdProduct() {
+        return idProduct;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getName() {
@@ -79,7 +79,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product [id=" + id + ", name=" + name + ", unit_price=" + unit_price + ", quantity_stock="
+        return "Product [idProduct=" + idProduct + ", name=" + name + ", unit_price=" + unit_price + ", quantity_stock="
                 + quantity_stock + ", quantity_min=" + quantity_min + ", quantity_max=" + quantity_max + ", idCategory="
                 + idCategory + "]";
     }
