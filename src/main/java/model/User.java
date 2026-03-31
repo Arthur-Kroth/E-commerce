@@ -7,21 +7,21 @@ public class User {
     private String cpf;
     private String email;
     private String password;
-    private String fone;
+    private String phone;
     private char date_burth;
     private int idAddresse;
     
     public User() {
     }
 
-    public User(int idUser, String name, String cpf, String email, String password, String fone, char date_burth,
+    public User(int idUser, String name, String cpf, String email, String password, String phone, char date_burth,
             int idAddresse) {
         this.idUser = idUser;
         this.name = name;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-        this.fone = fone;
+        this.phone = phone;
         this.date_burth = date_burth;
         this.idAddresse = idAddresse;
     }
@@ -66,12 +66,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFone() {
-        return fone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFone(String fone) {
-        this.fone = fone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public char getDate_burth() {
@@ -93,6 +93,6 @@ public class User {
     @Override
     public String toString() {
         return "User [idUser=" + idUser + ", name=" + name + ", cpf=" + cpf + ", email=" + email + ", password="
-                + password + ", fone=" + fone + ", date_burth=" + date_burth + ", idAddresse=" + idAddresse + "]";
+                + password + ", phone=" + phone + ", date_burth=" + date_burth + ", idAddresse=" + idAddresse + "]";
     } 
 }
