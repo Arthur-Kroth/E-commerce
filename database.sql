@@ -31,7 +31,7 @@ CREATE TABLE user (
     cpf VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(30) NOT NULL,
-    fone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
     date_burth CHAR(10) NOT NULL,
     idAddresse INT,
 	FOREIGN KEY (idAddresse) REFERENCES addresse(idAddresse)
@@ -88,5 +88,5 @@ CREATE TABLE ADM (
     cpf VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(30) NOT NULL,
-    fone VARCHAR(20) NOT NULL
+    phone VARCHAR(20) NOT NULL
 );
