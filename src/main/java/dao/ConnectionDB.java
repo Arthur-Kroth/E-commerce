@@ -1,5 +1,8 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 public class ConnectionDB {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -9,17 +12,17 @@ public class ConnectionDB {
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-    public static java.sql.Connection getConnection() {
+    public static Connection getConnection() {
         java.sql.Connection connection = null;
         try {
             Class.forName(DRIVER);
-            connection = java.sql.DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
             if (connection != null) {
                 System.out.println("Connection established successfully.");
             } else {
                 System.out.println("Failed to establish connection.");
             }
-        } catch (ClassNotFoundException | java.sql.SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error establishing connection: " + e.getMessage());
             return null;
         }
