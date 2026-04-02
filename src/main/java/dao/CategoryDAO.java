@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import model.Category;
 
 public class CategoryDAO {
@@ -33,5 +34,19 @@ public class CategoryDAO {
             System.out.println("Error fetching categories: " + e.getMessage());
         }
         return mylist;
+    }
+
+    public boolean insertCategory(Category object) {
+        String sql = "INSERT INTO categories (id, name) VALUES (?, ?)";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, object.getIdCategory());
+            preparedStatement.setString(2, object.getName());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            System.out.println("Error adding category: " + e.getMessage());
+            return false;
+        }
     }
 }
