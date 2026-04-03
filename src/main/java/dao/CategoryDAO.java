@@ -114,4 +114,25 @@ public class CategoryDAO {
         }
         return null;
     }
+
+    /*
+     * Fetches the ID of a category from the database based on its name.
+     * It uses a PreparedStatement to execute the SQL SELECT statement.
+     * If a category with the specified name is found, it returns the ID; otherwise, it returns -1.
+     */
+    public int getCategoryIdByName(String name) {
+        String sql = "SELECT id FROM categories WHERE name = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching category ID by name: " + e.getMessage());
+        }
+        return -1; // Return -1 if category not found
+    }
 }
