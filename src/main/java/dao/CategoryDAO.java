@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import model.Category;
 
@@ -36,6 +37,11 @@ public class CategoryDAO {
         return mylist;
     }
 
+    /*
+     * Inserts a new category into the database.
+     * It takes a Category object as input and uses a PreparedStatement to execute the SQL INSERT statement.
+     * If the insertion is successful, it returns true; otherwise, it returns false.
+     */
     public boolean insertCategory(Category object) {
         String sql = "INSERT INTO categories (id, name) VALUES (?, ?)";
         try (Connection connection = ConnectionDB.getConnection();
@@ -44,7 +50,7 @@ public class CategoryDAO {
             preparedStatement.setString(2, object.getName());
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error adding category: " + e.getMessage());
             return false;
         }
