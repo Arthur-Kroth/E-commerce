@@ -73,4 +73,23 @@ public class CategoryDAO {
             return false;
         }
     }
+
+    /*
+     * Updates an existing category in the database.
+     * It takes a Category object as input and uses a PreparedStatement to execute the SQL UPDATE statement.
+     * If the update is successful, it returns true; otherwise, it returns false.
+     */
+    public boolean updateCategory(Category object) {
+        String sql = "UPDATE categories SET name = ? WHERE id = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, object.getName());
+            preparedStatement.setInt(2, object.getIdCategory());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating category: " + e.getMessage());
+            return false;
+        }
+    }
 }
