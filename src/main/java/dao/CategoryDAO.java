@@ -92,4 +92,26 @@ public class CategoryDAO {
             return false;
         }
     }
+
+    /*
+     * Fetches a category from the database based on its ID.
+     * It uses a PreparedStatement to execute the SQL SELECT statement.
+     * If a category with the specified ID is found, it returns the Category object; otherwise, it returns null.
+     */
+    public Category getCategoryById(int id) {
+        String sql = "SELECT * FROM categories WHERE id = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    return new Category(id, name);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching category by ID: " + e.getMessage());
+        }
+        return null;
+    }
 }
