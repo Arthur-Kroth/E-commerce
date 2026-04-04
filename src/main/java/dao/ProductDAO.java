@@ -94,8 +94,7 @@ public class ProductDAO {
      * If the update is successful, it returns true; otherwise, it returns false.
      */
     public boolean updateProduct(Product object) {
-        String sql = "UPDATE products SET name = ?, unit_price = ?, quantity_stock = ?,"
-                   + " quantity_min = ?, quantity_max = ?, idCategory = ? WHERE idProduct = ?";
+        String sql = "UPDATE products SET name = ?, unit_price = ?, quantity_stock = ?, quantity_min = ?, quantity_max = ?, idCategory = ? WHERE idProduct = ?";
         try (Connection connection = ConnectionDB.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, object.getName());
@@ -111,5 +110,36 @@ public class ProductDAO {
             System.out.println("Error updating product: " + e.getMessage());
             return false;
         }
+    }
+
+    /*
+     * Fetches a product from the database based on its ID.
+     * It uses a PreparedStatement to execute the SELECT query.
+     * If a product with the specified ID is found, it returns the Product object; otherwise, it returns null.
+     */
+    public Product getProductById(int id) {
+        Product product = null;
+        String sql = "SELECT * FROM products WHERE idProduct = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int idProduct = resultSet.getInt("idProduct");
+                    String name = resultSet.getString("name");
+                    double unit_price = resultSet.getDouble("unit_price");
+                    int quantity_stock = resultSet.getInt("quantity_stock");
+                    int quantity_min = resultSet.getInt("quantity_min");
+                    int quantity_max = resultSet.getInt("quantity_max");
+                    int idCategory = resultSet.getInt("idCategory");
+                    product = new Product(idProduct, name, unit_price,
+                                          quantity_stock, quantity_min,
+                                          quantity_max, idCategory);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching product by ID: " + e.getMessage());
+        }
+        return product;
     }
 }
