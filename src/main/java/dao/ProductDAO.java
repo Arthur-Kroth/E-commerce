@@ -69,4 +69,22 @@ public class ProductDAO {
             return false;
         }
     }
+
+    /*
+     * Deletes a product from the database based on its ID.
+     * It uses a PreparedStatement to execute the DELETE query.
+     * If the deletion is successful, it returns true; otherwise, it returns false.
+     */
+    public boolean deleteProduct(int id) {
+        String sql = "DELETE FROM products WHERE idProduct = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error deleting product: " + e.getMessage());
+            return false;
+        }
+    }
 }
