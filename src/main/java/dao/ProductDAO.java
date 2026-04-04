@@ -142,4 +142,34 @@ public class ProductDAO {
         }
         return product;
     }
+
+    /*
+     * Fetches a product from the database based on its name.
+     * It uses a PreparedStatement to execute the SELECT query.
+     * If a product with the specified name is found, it returns the Product object; otherwise, it returns null.
+     */
+    public Product getProductByName(String name) {
+        Product product = null;
+        String sql = "SELECT * FROM products WHERE name = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, name);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int idProduct = resultSet.getInt("idProduct");
+                    double unit_price = resultSet.getDouble("unit_price");
+                    int quantity_stock = resultSet.getInt("quantity_stock");
+                    int quantity_min = resultSet.getInt("quantity_min");
+                    int quantity_max = resultSet.getInt("quantity_max");
+                    int idCategory = resultSet.getInt("idCategory");
+                    product = new Product(idProduct, name, unit_price,
+                                          quantity_stock, quantity_min,
+                                          quantity_max, idCategory);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching product by name: " + e.getMessage());
+        }
+        return product;
+    }
 }
