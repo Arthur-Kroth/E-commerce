@@ -39,7 +39,7 @@ public class ProductDAO {
                                               quantity_max, idCategory);
                 mylist.add(product);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error fetching products: " + e.getMessage());
         }
         return mylist;
