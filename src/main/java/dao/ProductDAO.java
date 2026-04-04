@@ -44,4 +44,29 @@ public class ProductDAO {
         }
         return mylist;
     }
+
+    /*
+     * Inserts a new product into the database.
+     * It takes a Product object as input and uses a PreparedStatement to execute the INSERT query.
+     * If the insertion is successful, it returns true; otherwise, it returns false.
+     */
+    public boolean insertProduct(Product object) {
+        String sql = "INSERT INTO products (idProduct, name, unit_price, quantity_stock,"
+                   + " quantity_min, quantity_max, idCategory) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, object.getIdProduct());
+            preparedStatement.setString(2, object.getName());
+            preparedStatement.setDouble(3, object.getUnit_price());
+            preparedStatement.setInt(4, object.getQuantity_stock());
+            preparedStatement.setInt(5, object.getQuantity_min());
+            preparedStatement.setInt(6, object.getQuantity_max());
+            preparedStatement.setInt(7, object.getIdCategory());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error adding product: " + e.getMessage());
+            return false;
+        }
+    }
 }
