@@ -87,4 +87,29 @@ public class ProductDAO {
             return false;
         }
     }
+
+    /*
+     * Updates an existing product in the database.
+     * It takes a Product object as input and uses a PreparedStatement to execute the UPDATE query.
+     * If the update is successful, it returns true; otherwise, it returns false.
+     */
+    public boolean updateProduct(Product object) {
+        String sql = "UPDATE products SET name = ?, unit_price = ?, quantity_stock = ?,"
+                   + " quantity_min = ?, quantity_max = ?, idCategory = ? WHERE idProduct = ?";
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, object.getName());
+            preparedStatement.setDouble(2, object.getUnit_price());
+            preparedStatement.setInt(3, object.getQuantity_stock());
+            preparedStatement.setInt(4, object.getQuantity_min());
+            preparedStatement.setInt(5, object.getQuantity_max());
+            preparedStatement.setInt(6, object.getIdCategory());
+            preparedStatement.setInt(7, object.getIdProduct());
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating product: " + e.getMessage());
+            return false;
+        }
+    }
 }
